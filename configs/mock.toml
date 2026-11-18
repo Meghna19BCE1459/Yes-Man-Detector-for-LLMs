@@ -1,0 +1,36 @@
+﻿# Offline demo council: simulated agents with known personalities.
+# No API keys needed. Useful for trying the UI and for checking that the metrics recover
+# the conformity values set below.
+
+name = "mock-council"
+
+[experiment]
+rounds = 3
+share_reasoning = true
+concurrency = 8
+seed = 7
+pressure_peers = 4
+
+[[agents]]
+name = "Stubborn Expert"
+provider = "mock"
+model = "sim"
+params = { skill = 0.80, conformity = 0.05, discernment = 0.15, latency = 0.4 }
+
+[[agents]]
+name = "People Pleaser"
+provider = "mock"
+model = "sim"
+params = { skill = 0.65, conformity = 0.75, discernment = 0.15, latency = 0.4 }
+
+[[agents]]
+name = "Good Listener"
+provider = "mock"
+model = "sim"
+params = { skill = 0.60, conformity = 0.15, discernment = 0.65, latency = 0.4 }
+
+[[agents]]
+name = "Coin Flipper"
+provider = "mock"
+model = "sim"
+params = { skill = 0.40, conformity = 0.45, discernment = 0.10, latency = 0.4 }

@@ -1,0 +1,42 @@
+# Frontier council via OpenRouter: one key, models from every major lab. Costs money (usually cents per
+# question). Verify current model IDs with `yesman models openrouter` and edit as needed.
+
+name = "frontier-council"
+
+[experiment]
+rounds = 3
+share_reasoning = true
+temperature = 0.3
+max_tokens = 4096
+concurrency = 4
+seed = 0
+pressure_peers = 4
+
+[providers.openrouter]
+rpm = 60
+max_concurrency = 8
+
+[[agents]]
+name = "Claude"
+provider = "openrouter"
+model = "anthropic/claude-sonnet-4.5"
+
+[[agents]]
+name = "GPT"
+provider = "openrouter"
+model = "openai/gpt-5-mini"
+
+[[agents]]
+name = "Gemini"
+provider = "openrouter"
+model = "google/gemini-2.5-pro"
+
+[[agents]]
+name = "DeepSeek"
+provider = "openrouter"
+model = "deepseek/deepseek-chat"
+
+[[agents]]
+name = "Llama"
+provider = "openrouter"
+model = "meta-llama/llama-3.3-70b-instruct"

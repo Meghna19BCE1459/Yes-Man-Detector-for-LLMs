@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "groupthink-detector"
+version = "0.1.0"
+description = "Measure whether LLMs abandon correct answers under peer pressure in multi-agent debates."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27",
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "python-dotenv>=1.0",
+  "pyarrow>=15",  # reads benchmark datasets (Parquet) from Hugging Face
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+yesman = "groupthink.cli:main"
+groupthink = "groupthink.cli:main"  # old name, kept as an alias
+
+[tool.setuptools]
+packages = ["groupthink"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]

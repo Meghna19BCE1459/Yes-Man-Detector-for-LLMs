@@ -1,0 +1,58 @@
+# A council that runs entirely on free API tiers: five models from five different labs.
+#   GEMINI_API_KEY      -> https://aistudio.google.com/apikey
+#   GROQ_API_KEY        -> https://console.groq.com/keys
+#   OPENROUTER_API_KEY  -> https://openrouter.ai/keys   (":free" models)
+#
+# Model IDs change often. Check what's currently available with:
+#   yesman models google
+#   yesman models groq
+#   yesman models openrouter :free
+# then `yesman check configs/free.toml` before a big run.
+
+name = "free-council"
+
+[experiment]
+rounds = 3
+share_reasoning = true
+temperature = 0.3
+max_tokens = 4096
+concurrency = 2      # free tiers have low rate limits
+seed = 0
+pressure_peers = 4
+
+[providers.google]
+rpm = 10
+max_concurrency = 2
+
+[providers.groq]
+rpm = 25
+max_concurrency = 3
+
+[providers.openrouter]
+rpm = 15
+max_concurrency = 2
+
+[[agents]]
+name = "Gemini Flash-Lite"     # Google. gemini-flash-latest is often overloaded (503) on the free tier
+provider = "google"
+model = "gemini-flash-lite-latest"
+
+[[agents]]
+name = "GPT-OSS 120B"          # OpenAI (open weights, hosted by Groq)
+provider = "groq"
+model = "openai/gpt-oss-120b"
+
+[[agents]]
+name = "Qwen 3.8 27B"          # Alibaba
+provider = "groq"
+model = "qwen/qwen3.8-27b"
+
+[[agents]]
+name = "Nemotron 3 Ultra"      # NVIDIA
+provider = "openrouter"
+model = "nvidia/nemotron-3-ultra-550b-a55b:free"
+
+[[agents]]
+name = "ERNIE 5.5 Flash"       # Baidu
+provider = "openrouter"
+model = "baidu/ernie-5.5-flash-preview:free"

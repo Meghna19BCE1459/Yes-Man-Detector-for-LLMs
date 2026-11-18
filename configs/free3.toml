@@ -1,0 +1,49 @@
+# Free council WITHOUT OpenRouter (no daily cap problems): Google, OpenAI, Alibaba.
+# Use this if you don't add OpenRouter credits.
+#   GEMINI_API_KEY      -> https://aistudio.google.com/apikey
+#   GROQ_API_KEY        -> https://console.groq.com/keys
+#   OPENROUTER_API_KEY  -> https://openrouter.ai/keys   (":free" models)
+#
+# Model IDs change often. Check what's currently available with:
+#   yesman models google
+#   yesman models groq
+#   yesman models openrouter :free
+# then `yesman check configs/free.toml` before a big run.
+
+name = "free-council-3"
+
+[experiment]
+rounds = 3
+share_reasoning = true
+temperature = 0.3
+max_tokens = 4096
+concurrency = 2      # free tiers have low rate limits
+seed = 0
+pressure_peers = 4
+
+[providers.google]
+rpm = 10
+max_concurrency = 2
+
+[providers.groq]
+rpm = 25
+max_concurrency = 3
+
+[providers.openrouter]
+rpm = 15
+max_concurrency = 2
+
+[[agents]]
+name = "Gemini Flash-Lite"     # Google. gemini-flash-latest is often overloaded (503) on the free tier
+provider = "google"
+model = "gemini-flash-lite-latest"
+
+[[agents]]
+name = "GPT-OSS 120B"          # OpenAI (open weights, hosted by Groq)
+provider = "groq"
+model = "openai/gpt-oss-120b"
+
+[[agents]]
+name = "Qwen 3.8 27B"          # Alibaba
+provider = "groq"
+model = "qwen/qwen3.8-27b"
