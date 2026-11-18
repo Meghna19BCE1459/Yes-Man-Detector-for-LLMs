@@ -8,7 +8,7 @@ Yes-Man Detector puts several LLMs from different companies in a room, has them 
 multiple-choice questions, and measures who **caves** to a wrong majority and who gets
 **corrected** by a right one.
 
-![Dashboard](docs/dashboard.png)
+![Yes-Man Detector demo](docs/demo.gif)
 
 ## How it works
 
